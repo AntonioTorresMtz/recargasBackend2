@@ -45,7 +45,7 @@ class RecargasController extends Controller
 
             ]
         );
-        $this->imprimir($request);
+        //$this->imprimir($request);
         return response()->json([
             'success' => true,
             'message' => 'Registro exitoso',
