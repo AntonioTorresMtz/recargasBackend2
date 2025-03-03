@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Recargas extends Model
 {
     protected $table = 'TBL_RECARGAS';
+    protected $primaryKey = 'PK_recarga';
 }
