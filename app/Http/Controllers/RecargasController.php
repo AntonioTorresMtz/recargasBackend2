@@ -73,12 +73,15 @@ class RecargasController extends Controller
         $printer->text("Concepto: " . $data['tipo_recarga'] . "\n");
         $printer->text("Compañia: " . $data['compania'] . "\n");
         $printer->text("Numero: " . $data['telefono'] . "\n");
-        $printer->text("Monto: $" . number_format($data['monto'], 2, ".", ","));
-        $printer->text("Fecha: " . $data['fecha'] . '\n');
-        $printer->text("\n Estatus: OK \n");
-
+        $printer->text("Monto: $" . number_format($data['monto'], 2, ".", ",") . "\n");
+        $printer->text("Fecha: " . $data['fecha'] . "\n");
+        $printer->text("Estatus: OK \n");
+        $printer->text("\n");
         $printer->setJustification(Printer::JUSTIFY_CENTER);
-        $printer->text("Gracias por su compra :)\n");
+        $printer->text("Este ticket se imprime de forma automatica unicamente si la recarga se hace. ");
+        $printer->text("Para dudas o aclaraciones solo con este ticket. \n");
+        $printer->text("\n");
+        $printer->text("Gracias por su compra :)". "\n");
         $printer->cut();
 
         // Cerrar la conexión de impresión
