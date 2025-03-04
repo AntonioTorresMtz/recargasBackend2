@@ -45,7 +45,7 @@ class RecargasController extends Controller
 
             ]
         );
-        //$this->imprimir($request);
+        $this->imprimir($request);
         return response()->json([
             'success' => true,
             'message' => 'Registro exitoso',
@@ -56,7 +56,7 @@ class RecargasController extends Controller
     public function imprimir($data)
     {
         // Crear una instancia del conector de impresión de Windows
-        $connector = new WindowsPrintConnector("POS58 Printer");
+        $connector = new WindowsPrintConnector("POS58");
 
         // Crear una instancia de la impresora
         $printer = new Printer($connector);
@@ -73,10 +73,9 @@ class RecargasController extends Controller
         $printer->text("Concepto: " . $data['tipo_recarga'] . "\n");
         $printer->text("Compañia: " . $data['compania'] . "\n");
         $printer->text("Numero: " . $data['telefono'] . "\n");
-        $printer->text("Monto: $" . number_format($data['monto'], 2, ".", ",") . "\n");
+        $printer->text("Monto: $" . number_format($data['monto'], 2, ".", ","));
         $printer->text("Fecha: " . $data['fecha'] . '\n');
-        $printer->text("Estatus: OK" . '\n');
-        $printer->text("\n");
+        $printer->text("\n Estatus: OK \n");
 
         $printer->setJustification(Printer::JUSTIFY_CENTER);
         $printer->text("Gracias por su compra :)\n");
