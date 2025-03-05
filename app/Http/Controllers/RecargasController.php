@@ -24,6 +24,20 @@ class RecargasController extends Controller
         ], 200);
     }
 
+    public function ultimaRecarga()
+    {
+        $recarga = Recargas::select('monto', 'FK_tipo_recarga', 'telefono', 'FK_terminal', 'FK_compania', 'fecha_insercion')
+            ->orderByDesc('PK_recarga')
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Consulta exitosa',
+            'codigo' => 200,
+            'data' => $recarga
+        ], 200);
+    }
+
     public function insertarDatos(Request $request)
     {
         $request->validate([
@@ -81,7 +95,7 @@ class RecargasController extends Controller
         $printer->text("Este ticket se imprime de forma automatica unicamente si la recarga se hace. ");
         $printer->text("Para dudas o aclaraciones solo con este ticket. \n");
         $printer->text("\n");
-        $printer->text("Gracias por su compra :)". "\n");
+        $printer->text("Gracias por su compra :)" . "\n");
         $printer->cut();
 
         // Cerrar la conexión de impresión

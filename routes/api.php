@@ -9,4 +9,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/recargas', [RecargasController::class, 'index']);
+Route::get('/recargas/ultimaRecarga', [RecargasController::class, 'ultimaRecarga']);
 Route::post('/recargas/insertarDatos', [RecargasController::class, 'insertarDatos']);
