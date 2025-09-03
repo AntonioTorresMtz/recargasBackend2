@@ -38,8 +38,14 @@ class RecargasController extends Controller
         ], 200);
     }
 
-    public function insertarDatos(Request $request)
+   public function insertarDatos(Request $request)
     {
+        $recarga = Recargas::select('fecha_insercion')
+            ->orderBy('PK_recarga', 'desc')
+            ->first();
+
+        $fecha = $recarga->fecha_insercion;
+
         $request->validate([
             "monto" => "required",
             "tipo_recarga" => "required",
@@ -48,23 +54,32 @@ class RecargasController extends Controller
             "fecha" => "required",
         ]);
 
-        DB::statement(
-            "CALL SP_INSERTAR_RECARGA(?,?,?,?,?)",
-            [
-                $request["monto"],
-                $request["tipo_recarga"],
-                $request["telefono"],
-                $request["fecha"],
-                $request["compania"]
+        if ($fecha != $request["fecha"]) {
+            DB::statement(
+                "CALL SP_INSERTAR_RECARGA(?,?,?,?,?)",
+                [
+                    $request["monto"],
+                    $request["tipo_recarga"],
+                    $request["telefono"],
+                    $request["fecha"],
+                    $request["compania"]
 
-            ]
-        );
-        $this->imprimir($request);
-        return response()->json([
-            'success' => true,
-            'message' => 'Registro exitoso',
-            'codigo' => 201,
-        ], 201);
+                ]
+            );
+            $this->imprimir($request);
+            return response()->json([
+                'success' => true,
+                'message' => 'Registro exitoso',
+                'codigo' => 201,
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => true,
+                'message' => 'Registro duplicado',
+                'codigo' => 200,
+            ], 200);
+        }
+
     }
 
     public function imprimir($data)
