@@ -97,7 +97,7 @@ class ServiciosController extends Controller
 
         $printer->text("Producto: " . $data['producto'] . "\n");
         $printer->text("Referencia: " . $data['referencia'] . "\n");        
-        $printer->text("Monto: $" . number_format($data['monto'], 2, ".", ",") . "\n");
+        $printer->text("Monto: $" . number_format($data['cantidad'], 2, ".", ",") . "\n");
         $printer->text("Fecha: " . $data['fecha'] . "\n");
         $printer->text("Estatus: OK \n");
         $printer->text("\n");
